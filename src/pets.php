@@ -4,53 +4,66 @@ namespace App;
 
 use PDO;
 
-class Student
+class pets
 {
 	protected $id;
-	protected $first_name;
-	protected $last_name;
+	protected $name;
+	protected $gender;
+	protected $birthdate;
+	protected $owner;
 	protected $email;
-	protected $created_at;
+	protected $address;
+	protected $contact_number;
+	
 
 	public function getId()
 	{
 		return $this->id;
 	}
 
-	public function getFullName()
+	public function getName()
 	{
-		return $this->first_name . ' ' . $this->last_name;
+		return $this->name;
 	}
 
-	public function getFirstName()
+	public function getOwner()
 	{
-		return $this->first_name;
+		return $this->owner;
 	}
-
-	public function getLastName()
+	public function getBirthdate()
 	{
-		return $this->last_name;
+		return $this->birthdate;
 	}
-
 	public function getEmail()
 	{
 		return $this->email;
 	}
-
+	public function getGender()
+	{
+		return $this->gender;
+	}
+	public function getAddress()
+	{
+		return $this->address;
+	}
+	public function getContactNumber()
+	{
+		return $this->contact_number;
+	}
 	public static function list()
 	{
 		global $conn;
 
 		try {
-			$sql = "SELECT * FROM students";
+			$sql = "SELECT * FROM pets";
 			$statement = $conn->query($sql);
 			
-			$students = [];
-			while ($row = $statement->fetchObject('App\Student')) {
-				array_push($students, $row);
+			$pets = [];
+			while ($row = $statement->fetchObject('App\pets')) {
+				array_push($pets, $row);
 			}
 
-			return $students;
+			return $pets;
 		} catch (PDOException $e) {
 			error_log($e->getMessage());
 		}
@@ -64,7 +77,7 @@ class Student
 
 		try {
 			$sql = "
-				SELECT * FROM students
+				SELECT * FROM pets
 				WHERE id=:id
 				LIMIT 1
 			";
@@ -72,7 +85,7 @@ class Student
 			$statement->execute([
 				'id' => $id
 			]);
-			$result = $statement->fetchObject('App\Student');
+			$result = $statement->fetchObject('App\pets');
 			return $result;
 		} catch (PDOException $e) {
 			error_log($e->getMessage());
@@ -81,14 +94,14 @@ class Student
 		return null;
 	}
 
-	public static function register($first_name, $last_name, $email)
+	public static function register($name, $gender, $birthdate, $owner, $email, $address, $contact_number)
 	{
 		global $conn;
 
 		try {
 			$sql = "
-				INSERT INTO students (first_name, last_name, email)
-				VALUES ('$first_name', '$last_name', '$email')
+				INSERT INTO pets (name, gender, birthdate, owner, email, address, contact_number)
+				VALUES ('$name', '$gender', '$birthdate', '$owner', '$email', '$address', '$contact_number')
 			";
 			$conn->exec($sql);
 
@@ -100,18 +113,22 @@ class Student
 		return false;
 	}
 
-	public static function registerMany($users)
+	public static function registerMany($pets)
 	{
 		global $conn;
 
 		try {
-			foreach ($users as $user) {
+			foreach ($pets as $pets) {
 				$sql = "
-					INSERT INTO students
+					INSERT INTO pets
 					SET
-						first_name=\"{$user['first_name']}\",
-						last_name=\"{$user['last_name']}\",
-						email=\"{$user['email']}\"
+						name=\"{$pets['name']}\",
+						gender=\"{$pets['gender']}\",
+						birthdate=\"{$pets['birthdate']}\"
+						owner=\"{$pets['owner']}\"
+						email=\"{$pets['email']}\"
+						address=\"{$pets['address']}\"
+						contact_number=\"{$pets['contact_number']}\"
 				";
 				$conn->exec($sql);
 			}
@@ -123,23 +140,23 @@ class Student
 		return false;
 	}
 
-	public static function update($id, $first_name, $last_name, $email)
+	public static function update($id, $name, $owner, $email)
 	{
 		global $conn;
 
 		try {
 			$sql = "
-				UPDATE students
+				UPDATE pets
 				SET
-					first_name=?,
-					last_name=?,
+					name=?,
+					owner=?,
 					email=?
 				WHERE id=?
 			";
 			$statement = $conn->prepare($sql);
 			return $statement->execute([
-				$first_name,
-				$last_name,
+				$name,
+				$owner,
 				$email,
 				$id
 			]);
@@ -150,23 +167,23 @@ class Student
 		return false;
 	}
 
-	public static function updateUsingPlaceholder($id, $first_name, $last_name, $email)
+	public static function updateUsingPlaceholder($id, $name, $owner, $email)
 	{
 		global $conn;
 
 		try {
 			$sql = "
-				UPDATE students
+				UPDATE pets
 				SET
-					first_name=:first_name,
-					last_name=:last_name,
+					name=:name,
+					owner=:owner,
 					email=:email
 				WHERE id=:id
 			";
 			$statement = $conn->prepare($sql);
 			return $statement->execute([
-				'first_name' => $first_name,
-				'last_name' => $last_name,
+				'name' => $name,
+				'owner' => $owner,
 				'email' => $email,
 				'id' => $id
 			]);
@@ -183,7 +200,7 @@ class Student
 
 		try {
 			$sql = "
-				DELETE FROM students
+				DELETE FROM pets
 				WHERE id=:id
 			";
 			$statement = $conn->prepare($sql);
@@ -202,7 +219,7 @@ class Student
 		global $conn;
 
 		try {
-			$sql = "TRUNCATE TABLE students";
+			$sql = "TRUNCATE TABLE pets";
 			$statement = $conn->prepare($sql);
 			return $statement->execute();
 		} catch (PDOException $e) {

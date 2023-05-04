@@ -2,26 +2,17 @@
 
 require "config.php";
 
-use App\Student;
+use App\pets;
 
 try {
-	Student::register('Richard', 'Feynman', 'richard@feynman.com');
-	echo "<li>Added 1 student";
+	pets::register('Andrei', 'Male', '2008-7-04', 'Ronio', 'roniojericsdao@gmail.com', 'CSFP', '09129983674');
+	echo "<li>Added 1 pet";
 
-	$students = [
-		[
-			'first_name' => 'Albert',
-			'last_name' => 'Einstein',
-			'email' => 'albert@einstein.com'
-		],
-		[
-			'first_name' => 'Paul',
-			'last_name' => 'Erdos',
-			'email' => 'paul@erdos.com'
-		]
+	$pets = [
+	
 	];
-	Student::registerMany($students);
-	echo "<li>Added " . count($students) . " more students";
+	pets::registerMany($pets);
+	echo "<li>Added " . count($pets) . " more pets";
 	echo "<br /><a href='index.php'>Proceed to Index Page</a>";
 
 } catch (PDOException $e) {
