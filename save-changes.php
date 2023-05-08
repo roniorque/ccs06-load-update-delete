@@ -9,9 +9,12 @@ use App\pets;
 try {
 	$id = $_POST['id'];
 	$name = $_POST['name'];
+	$gender = $_POST['gender'];
+	$birthdate = $_POST['birthdate'];
 	$owner = $_POST['owner'];
 	$email = $_POST['email'];
-	$result = pets::update($id, $name, $owner, $email);
+	$contact_number = $_POST['contact_number'];
+	$result = pets::update($id, $name, $gender, $birthdate, $owner, $email, $contact_number);
 
 	if ($result) {
 		header('Location: index.php');
