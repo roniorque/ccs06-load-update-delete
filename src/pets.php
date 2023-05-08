@@ -140,7 +140,42 @@ class pets
 		return false;
 	}
 
-	public static function update($id, $name, $gender, $birthdate, $owner, $email, $address, $contact_number	)
+	public static function update($id, $name, $gender, $birthdate, $owner, $email, $address, $contact_number)
+	{
+		global $conn;
+
+	try {
+        $sql = "
+            UPDATE pets
+            SET
+                name = :name,
+                gender = :gender,
+                birthdate = :birthdate,
+                owner = :owner,
+                email = :email,
+                address = :address,
+                contact_number = :contact_number
+            WHERE id = :id
+        ";
+        $statement = $conn->prepare($sql);
+        return $statement->execute([
+            'name' => $name,
+            'gender' => $gender,
+            'birthdate' => $birthdate,
+            'owner' => $owner,
+            'email' => $email,
+            'address' => $address,
+            'contact_number' => $contact_number,
+            'id' => $id
+        ]);
+		} catch (PDOException $e) {
+			error_log($e->getMessage());
+		}
+
+		return false;
+	}
+
+	public static function updateUsingPlaceholder($id, $name, $gender, $birthdate, $owner, $email, $address, $contact_number)
 	{
 		global $conn;
 
@@ -149,42 +184,23 @@ class pets
 				UPDATE pets
 				SET
 					name=?,
+					gender=?
+					birthdate=?
 					owner=?,
 					email=?
-				WHERE id=?
-			";
-			$statement = $conn->prepare($sql);
-			return $statement->execute([
-				$name,
-				$owner,
-				$email,
-				$id
-			]);
-		} catch (PDOException $e) {
-			error_log($e->getMessage());
-		}
-
-		return false;
-	}
-
-	public static function updateUsingPlaceholder($id, $name, $owner, $email)
-	{
-		global $conn;
-
-		try {
-			$sql = "
-				UPDATE pets
-				SET
-					name=:name,
-					owner=:owner,
-					email=:email
+					address=?
+					contact_number=?
 				WHERE id=:id
 			";
 			$statement = $conn->prepare($sql);
 			return $statement->execute([
 				'name' => $name,
+				'gender' => $gender,
+				'birthdate' => $birthdate,
 				'owner' => $owner,
 				'email' => $email,
+				'address' => $address,
+				'contact_number' => $contact_number,
 				'id' => $id
 			]);
 		} catch (PDOException $e) {

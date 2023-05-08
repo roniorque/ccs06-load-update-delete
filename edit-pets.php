@@ -26,8 +26,8 @@ $pet = pets::getById($pet_id);
 	</div>
 	<div>
 		<label>Pet Gender:</br></label>
-		<input type="radio" name="gender" value="<?php echo $pet->getGender();?>" >Male
-		<input type="radio" name="gender" value="<?php echo $pet->getGender();?>" >Female	
+		<input type="radio" name="gender" value="Male" <?php echo ($pet->getGender() === 'Male') ? 'checked' : ''; ?>>Male
+    	<input type="radio" name="gender" value="Female" <?php echo ($pet->getGender() === 'Female') ? 'checked' : ''; ?>>Female
 	<div>
 		<label>Pet Birthdate:</br></label>
 		<input type="date" name="birthdate" placeholder="Pet Birthdate" value="<?php echo $pet->getBirthdate();?>" />	
