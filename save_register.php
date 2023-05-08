@@ -7,7 +7,6 @@ use App\pets;
 // Save the Student information, and automatically redirect to index
 
 try {
-	$id = $_POST['id'];
 	$name = $_POST['name'];
 	$gender = $_POST['gender'];
 	$birthdate = $_POST['birthdate'];
@@ -15,7 +14,7 @@ try {
 	$email = $_POST['email'];
 	$address = $_POST['address'];
 	$contact_number = $_POST['contact_number'];
-	$result = pets::update($id, $name, $gender, $birthdate, $owner, $email, $address, $contact_number);
+	$result = pets::register($name, $gender, $birthdate, $owner, $email, $address, $contact_number);
 
 	if ($result) {
 		header('Location: index.php');

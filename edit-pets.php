@@ -26,11 +26,11 @@ $pet = pets::getById($pet_id);
 	</div>
 	<div>
 		<label>Pet Gender:</br></label>
-		<input type="text" name="gender" placeholder="Pet Gender" value="<?php echo $pet->getGender();?>" />	
-	</div>
+		<input type="radio" name="gender" value="<?php echo $pet->getGender();?>" >Male
+		<input type="radio" name="gender" value="<?php echo $pet->getGender();?>" >Female	
 	<div>
 		<label>Pet Birthdate:</br></label>
-		<input type="text" name="birthdate" placeholder="Pet Birthdate" value="<?php echo $pet->getBirthdate();?>" />	
+		<input type="date" name="birthdate" placeholder="Pet Birthdate" value="<?php echo $pet->getBirthdate();?>" />	
 	</div>
 	<div>
 		<label>Pet Owner:</br></label>
@@ -38,7 +38,11 @@ $pet = pets::getById($pet_id);
 	</div>
 	<div>
 		<label>Email Address:</br></label>
-		<input type="email" name="email" placeholder="email@address.com" value="<?php echo $pet->getEmail();?>" />	
+		<input type="text" name="email" placeholder="email@address.com" value="<?php echo $pet->getEmail();?>" />	
+	</div>
+	<div>
+		<label>Address:</br></label>
+		<input type="text" name="address" value="<?php echo $pet->getAddress();?>" />	
 	</div>
 	<div>
 		<label>Contact Number:</br></label>

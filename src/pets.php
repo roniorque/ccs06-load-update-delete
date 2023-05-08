@@ -140,7 +140,7 @@ class pets
 		return false;
 	}
 
-	public static function update($id, $name, $owner, $email)
+	public static function update($id, $name, $gender, $birthdate, $owner, $email, $address, $contact_number	)
 	{
 		global $conn;
 
