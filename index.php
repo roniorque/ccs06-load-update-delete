@@ -9,7 +9,7 @@ $pets = pets::list();
 ?>
 
 <h1>Pets</h1>
-
+<?php if (!empty($pets)): ?>
 <table border="1" cellpadding="5">
 <tr>
 	<th>ID</th>
@@ -45,6 +45,12 @@ $pets = pets::list();
 	<a href="truncate-table.php?id=<?php echo $pets->getId(); ?>">TRUNCATE TABLE</a>
 </td>
 </tr>
+
 <?php endforeach ?>
 </table>
+<?php else: ?>
+    <div>
+		<a href="register.php">REGISTER PET</a>
+	<div>
+<?php endif ?>
 	

@@ -37,6 +37,7 @@
 	</div>
 	
 	<input type="submit" value="Submit">
+    <a href="index.php">Cancel</a>
 </form>
 
 </html>
